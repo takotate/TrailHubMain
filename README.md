@@ -263,3 +263,59 @@ STORAGE_BUCKET=
 
 ---
 
+🧱 Frontend Integration (Current Dev Slice)
+
+TrailHub includes a frontend prototype built with React + Vite, implementing the Hiker actor’s flow end-to-end:
+
+Explore all hikes (GET /api/hikes)
+
+View hike details (GET /api/hikes/:id)
+
+Join or leave hikes (POST/DELETE /api/hikes/:id/join)
+
+Mock authentication using the x-dev-user request header
+
+Frontend is located in /frontend and connects to the backend at http://localhost:3000.
+
+Run frontend locally:
+
+cd frontend
+npm install
+npm run dev
+# Visit http://localhost:5173
+
+🧪 Dev Authentication (Mock Mode)
+
+During early development, TrailHub uses a mock user header instead of Firebase Authentication:
+
+x-dev-user: {"id":"u_hiker_1","role":"hiker","email":"hiker@example.com"}
+
+
+This enables testing of user roles without authentication setup.
+
+Role	Example Header
+Hiker	{"id":"u_hiker_1","role":"hiker"}
+Guide	{"id":"g1","role":"guide"}
+Admin	{"id":"a1","role":"admin"}
+
+All endpoints requiring authentication depend on this header when running in development mode.
+
+🧭 Development Workflow
+
+Branch structure:
+
+main → stable branch (demo-ready)
+
+dev → active feature development
+
+feature/* → short-lived branches for specific features
+
+Typical workflow:
+
+git checkout dev
+git checkout -b feature/guide-create-hike
+# ... make changes ...
+git push origin feature/guide-create-hike
+
+
+Use pull requests to merge into dev → then into main when stable.
